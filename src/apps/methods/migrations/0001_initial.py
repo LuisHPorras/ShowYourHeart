@@ -18,6 +18,26 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Campaign',
+            fields=[
+                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='created at')),
+                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='updated at')),
+                ('name', models.CharField(blank=True, max_length=400, verbose_name='Name')),
+                ('year', models.CharField(max_length=4, verbose_name='Year')),
+                ('status', models.BooleanField(blank=True, verbose_name='Active')),
+                ('methods', models.CharField(blank=True, max_length=400, verbose_name='Methods')),
+                ('start_date', models.DateField(verbose_name='Start date')),
+                ('end_date', models.DateField(verbose_name='End date')),
+                ('created_by', models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='%(app_label)s_%(class)s_related', to=settings.AUTH_USER_MODEL, verbose_name='created by')),
+                ('previous_campaign', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='methods.campaign')),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(project.models.SetBooleanDatetimeMixin, models.Model),
+        ),
+        migrations.CreateModel(
             name='Topic',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
