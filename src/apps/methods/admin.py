@@ -142,6 +142,7 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
                 "external_surveys",
             ],
             translatable_fields=["name", "description"],
+            display_log=False,
         )
 
 
