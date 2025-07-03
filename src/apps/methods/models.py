@@ -162,6 +162,11 @@ class Method(BaseModel):
         related_name="sectors",
         blank=True,
     )
+    sectors = models.ManyToManyField(
+        "settings.Sector",
+        verbose_name=_("Sectors"),
+        related_name="sectors",
+    )
     external_surveys = models.ManyToManyField(
         "self",
         verbose_name=_("External surveys"),
