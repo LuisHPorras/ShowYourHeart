@@ -146,9 +146,6 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
-admin.site.register(Method, MethodAdmin)
-
-
 class ListAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["items"]
     search_fields = ["title"]
