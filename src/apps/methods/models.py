@@ -166,6 +166,7 @@ class Method(BaseModel):
         "settings.Sector",
         verbose_name=_("Sectors"),
         related_name="sectors",
+        blank=True,
     )
     external_surveys = models.ManyToManyField(
         "self",
