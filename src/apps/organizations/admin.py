@@ -8,6 +8,8 @@ from .forms import OrganizationAdminForm
 from .helpers import get_organization_method_filter
 from .models import Organization
 
+from unfold.contrib.filters.admin import ChoicesDropdownFilter
+
 
 @admin.register(Organization)
 class OrganizationAdmin(ModelAdmin):
@@ -19,6 +21,10 @@ class OrganizationAdmin(ModelAdmin):
     filter_horizontal = ("methods",)
 
     list_filter = [("status", ChoicesDropdownFilter)]
+
+    list_filter = [
+        ("status", ChoicesDropdownFilter)
+    ]
 
     def get_fieldsets(self, request, obj=None):
         # Do not display "log fields" twice, display them only on a "Log" section
