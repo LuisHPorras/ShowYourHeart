@@ -52,7 +52,7 @@ class UserProfile(BaseModel):
         null=False,
         blank=False,
         on_delete=models.CASCADE,
-        related_name="profile",
+        related_name="user",
     )
     telephone = models.CharField(
         _("telephone"),
