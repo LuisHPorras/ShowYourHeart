@@ -6,9 +6,10 @@ from django.utils.html import escapejs, format_html
 from django.utils.translation import gettext as _
 from modeltranslation.admin import TranslationAdmin
 
-from project.admin import ModelAdmin
+from project.admin import ModelAdmin, gov_admin_register
+from project.helpers import register_with_default_templates
 
-from .forms import InvitationInlineForm, MethodForm
+from .forms import MethodForm
 from .models import (
     Campaign,
     ExternalSurveyInvitation,
@@ -23,6 +24,10 @@ from .models import (
 )
 
 
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Topic)
+# Add admin views with custom templates
+@gov_admin_register(Topic)
 class TopicAdmin(ModelAdmin, TranslationAdmin):
     search_fields = ["name"]
 
@@ -40,6 +45,10 @@ class TopicAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Indicator)
+# Add admin views with custom templates
+@gov_admin_register(Indicator)
 class IndicatorAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["topics", "list_options"]
 
@@ -90,6 +99,10 @@ class IndicatorAdmin(ModelAdmin, TranslationAdmin):
         return form
 
 
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Method)
+# Add admin views with custom templates
+@gov_admin_register(Method)
 class MethodAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["sectors", "legal_structures", "network_owner"]
     search_fields = ["name"]
@@ -146,6 +159,10 @@ class MethodAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=List)
+# Add admin views with custom templates
+@gov_admin_register(List)
 class ListAdmin(ModelAdmin, TranslationAdmin):
     autocomplete_fields = ["items"]
     search_fields = ["title"]
@@ -159,6 +176,10 @@ class ListAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=ListItem)
+# Add admin views with custom templates
+@gov_admin_register(ListItem)
 class ListItemAdmin(ModelAdmin, TranslationAdmin):
     search_fields = ["title"]
 
@@ -174,7 +195,11 @@ class ListItemAdmin(ModelAdmin, TranslationAdmin):
         )
 
 
-class CampaignAdmin(ModelAdmin, TranslationAdmin):
+# Add superadmin views with default Unfold templates
+@register_with_default_templates(admin.site, model=Campaign)
+# Add admin views with custom templates
+@gov_admin_register(Campaign)
+class CampaignAdmin(ModelAdmin):
     list_display = (
         "year",
         "name",
@@ -320,11 +345,12 @@ def get_url_with_alert_msg(self, alert_msg, url, text):
     )
 
 
-admin.site.register(Topic, TopicAdmin)
-admin.site.register(Indicator, IndicatorAdmin)
-admin.site.register(List, ListAdmin)
-admin.site.register(ListItem, ListItemAdmin)
-admin.site.register(Campaign, CampaignAdmin)
+# admin.site.register(Topic, TopicAdmin)
+# admin.site.register(Indicator, IndicatorAdmin)
+# admin.site.register(List, ListAdmin)
+# admin.site.register(ListItem, ListItemAdmin)
+# admin.site.register(Method, MethodAdmin)
+# admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(IndicatorResult, IndicatorResultAdmin)
 admin.site.register(ExternalSurveyInvitation, ExternalSurveyInvitationAdmin)
