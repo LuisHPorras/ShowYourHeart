@@ -197,10 +197,11 @@ class Command(BaseCommand):
             indicator = Indicator.objects.filter(name=indicator_name)
             if not indicator.exists():
                 indicator = Indicator.objects.create(
-                    code=x,
+                    code=f"q00{x}",
                     version="1",
                     name=indicator_name,
                     is_direct_indicator=True,
+                    unit=Indicator.Unit.POINTS,
                 )
                 indicator.topics.set(topics)
             else:
